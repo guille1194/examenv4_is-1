@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<style type="text/css">
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+<div id="login-page" class="row">
+	<center><h5>Genere un Examen este es el bueno</h5></center>
+      <div class="col s12 z-depth-6 card-panel">
+		<form  action="." method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="row">
+	          </div>
+
+	          <div class="row">
+	            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="id_materia" id="id_materia" value="{{object.serie}}">
+		              <label for="id_materia">Materia</label>
+	            </div>
+          	  </div>
+
+
+          	  <div class="row">
+	          	  <div class="input-field col s12">
+					    <select name="unidad" id="unidad">
+					      <option value="" disabled selected>Choose your option</option>
+					      <option value="1">1</option>
+					      <option value="2">2</option>
+					      <option value="3">3</option>
+					      <option value="4">4</option>
+					      <option value="5">5</option>
+					      <option value="6">6</option>
+					    </select>
+					    <label>Unidad</label>
+				  </div>
+			  </div>
+
+          	  	
+
+	            
+		    <!--<div class="input-field col s12">
+			    <select multiple name="id_pregunta_respuesta">
+					<option value="" disabled selected>Choose your option</option>
+					      <!--{%for item in pregunta_res %}-->
+						<!--<option value="{{item.id_pregunta_respuesta}}">{{item.id_pregunta_respuesta}}</option>
+						<option value="dbcdhbc">hola</option>
+					      <!--{%endfor%}-->
+				<!--</select>
+					    <label>Agrege preguntas</label>
+		    </div>-->
+
+		    <div class="input-field col s12">
+			    <select multiple name="id_pregunta_respuesta">
+			      <option value="" disabled selected>Choose your option</option>
+			      {%for item in pregunta_res %}
+			      	<option value="{{item.id_pregunta_respuesta}}">{{item.id_pregunta.nombre}}</option>
+			      {%endfor%}
+			    </select>
+			    <label>Materialize Multiple Select</label>
+			</div>
+
+	            
+
+          	  
+
+          	  <div class="row">
+		            <button class="btn waves-effect waves-light col s12" type="submit" name="action" id="boton-guardar" name="boton-guardar">Crear
+		            </button>
+          	  </div>
+
+		</form>
+	 </div>
+</div>
+{%endblock%}

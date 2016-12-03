@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<center><h3>Registra una materia</h3></center>
+	 <div id="login-page" class="row">
+	 	<div class="col s12 z-depth-6 card-panel">
+	 		 <form id="miForm" action="."  method="POST" enctype="multipart/form-data">
+	 		 	{% csrf_token %}
+	 		 	<div class="row">
+		            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="serie" id="id_serie">
+		              <label for="serie" data-error="wrong" data-success="right">Serie</label>
+		            </div>
+	            </div>
+	            <div class="row">
+		            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="nombre" id="id_nombre">
+		              <label for="nombre" data-error="wrong" data-success="right">Nombre</label>
+		            </div>
+	            </div>
+	            <div class="row">
+		            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="maestro_a" id="id_maestro_a" value="{{user.profile.n_empleado}}">
+		              <label for="maestro_a" data-error="wrong" data-success="right">Maestro</label>
+		            </div>
+	            </div>
+		           
+	            <div class="row">
+		            <button class="btn waves-effect waves-light col s12" type="submit" name="action">Registrar
+		            </button>
+          		</div>
+	 		 </form>
+	 	</div>
+	 </div>
+<style type="text/css">
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% load staticfiles %}
+{%block content %}
+<script src="{% static 'materialize/js/jquery-2.2.1.js'%}"> </script>
+<link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css'%}">
+<script src="{% static 'materialize/js/materialize.min.js'%}"> </script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style type="text/css">
+  body {
+    height: 100%;
+}
+html {
+    display: table;
+    margin: auto;Username
+
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background: #4ECDC4;
+}
+
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+<br>
+<br>
+<body>
+  <div id="login-page" class="row">
+      <div class="col s12 z-depth-6 card-panel">
+        <form id="miForm" action="."  method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">person_outline</i>
+              <input class="validate"  type="text" name="username" id="id_username">
+              <label for="email" data-error="wrong" data-success="right">Username</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input class="validate" type="password" name="password1" id="id_password">
+              <label for="password">Password</label>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input class="validate" type="password" name="password2" id="id_password2">
+              <label for="password2">Password confirm</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input class="validate" type="text" name="n_empleado" id="id_n_empleado">
+              <label for="n_empleado">Numero de empleado</label>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input class="validate" type="text" name="nombre" id="id_nombre">
+              <label for="nombre">Nombre</label>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mail_outline</i>
+              <input class="validate" type="text" name="correo" id="id_correo">
+              <label for="correo">Correo</label>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <button class="btn waves-effect waves-light col s12" type="submit" name="action" id="login">Registrarse
+            </button>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <p class="margin medium-small"><a href="/">Login</a></p>
+            </div>
+            <div class="input-field col s6 m6 l6">
+                <p class="margin right-align medium-small"><a href="#">Forgot password?</a></p>
+            </div>          
+          </div>
+
+        </form>
+      </div>
+  </div> 
+</body>
+</html>
+{% endblock %}

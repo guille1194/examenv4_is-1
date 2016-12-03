@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<style type="text/css">
+	#b2{
+		background-color: #42a5f5 ;
+	}
+</style>
+<body id="b2">
+	<div class="row">
+      <div class="col s12 m4 l3"  id="r1"> <!-- Note that "m4 l3" was added -->
+                <ul>
+                    <li>
+                        <div class="userView">
+                              <a><span class="black-text">Nombre Materia: {{object.nombre}}</span></a><br>
+                              <a><span class="black-text" name="campo" value="Serie Materia{{object.serie}}">{{object.serie}}</span></a><br>
+                              <a><span class="black-text">Nombre Maestro: {{user.profile.nombre}}</span></a><br>
+                              <a href="/Examen_view" id="boton-guardar"><span class="black-text">Crear Examen</span></a><br>
+                              <input type="hidden" id="p" value="{{object.profesor}}">
+                        </div>
+                    </li>
+                    <li><div class="divider"></div></li>
+                </ul>
+      </div>
+</body>
+<br>
+<div class="col s12 m8 l9" id="r2">
+	<div id="login-page" class="row">
+		<div class="col s12 z-depth-6 card-panel">
+		 <form method="POST" >
+		 	<center><h3>Inscribir alumno</h3></center>
+		 	{% csrf_token %}
+		 	<div class="row">
+			    <div class="input-field col s12">
+			        <i class="material-icons prefix">person_outline</i>
+			        <input class="validate"  type="text" name="alum" id="id_alum">
+			        <label for="alum" data-error="wrong" data-success="right">Numero de control</label>
+			    </div>
+		    </div>
+		    <div class="row">
+			    <div class="input-field col s12">
+			        <i class="material-icons prefix">person_outline</i>
+			        <input class="validate"  type="text" name="materi" id="id_materi" value="{{object.serie}}">
+			        <label for="materi" data-error="wrong" data-success="right">Serie de Materia</label>
+			    </div>
+		    </div>       
+		    <div class="row">
+			    <button class="btn waves-effect waves-light col s12" type="submit" name="action">Inscribir
+			    </button>
+	        </div>
+		 </form>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+	#r1{
+    background-color:#ffffff;
+    height:565px;
+    width:250px;
+  }
+  #login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+{%endblock%}

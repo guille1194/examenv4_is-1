@@ -1,0 +1,300 @@
+/* If you use any of this, it'd be nice to mention my name.
+
+Andrew Tunnecliffe - 2014
+
+*/
+
+body, html {
+  height:100%;
+  width:100%;
+  margin:0;
+  -webkit-transition:all 1s ease-in-out;
+  transition:all 1s ease-in-out;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+}
+.loading {
+  position:absolute;
+  height:100%;
+  width:100%;
+  background:#26A69A;
+  z-index:11;
+  -webkit-animation:fadeout 0.5s forwards 1s;
+          animation:fadeout 0.5s forwards 1s;
+}
+.item {
+  float:left;
+  overflow:hidden;
+  position:absolute;
+}
+.inner {
+  margin: auto;
+  height:90%;
+  width:90%;
+  cursor:pointer;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  opacity:0;
+  -webkit-animation:fadein 0.5s forwards 2s;
+          animation:fadein 0.5s forwards 2s;
+}
+.loading > .inner {
+  opacity:1;
+}
+.loading > .inner > .ellipsis::after{
+   content: '.';
+   font-size: 1em;
+   color: transparent;
+   -webkit-animation: ellipsis .75s steps(3) 5;
+           animation: ellipsis .75s steps(3) 5;
+}
+.inner p {
+  font-size:xx-large;
+  position:absolute;
+  margin:0;
+  top: 50%;
+  width:100%;
+  text-align:center;
+}
+.border {
+  background:#333;
+  position:absolute;
+  -webkit-transition:all 0.2s ease;
+  transition:all 0.2s ease;
+}
+
+/* Items */
+.item:nth-child(2) {
+  z-index:10;
+  background:#26A69A;
+  width:100%;
+  height:90%;
+  -webkit-animation: slidein1 0.4s forwards 1.2s;
+          animation: slidein1 0.4s forwards 1.2s;
+}
+.item:nth-child(3){
+  z-index:9;
+  background:#EC407A;
+  right:0;
+  width:50%;
+  height:100%;
+  -webkit-animation: slidein2 0.4s forwards 1.4s;
+          animation: slidein2 0.4s forwards 1.4s;
+}
+.item:nth-child(4){
+  z-index:8;
+  left:50%;
+  bottom:0;
+  background:#AB47BC;
+  width:50%;
+  height:50%;
+  -webkit-animation: slidein3 0.4s forwards 1.6s;
+          animation: slidein3 0.4s forwards 1.6s;
+}
+.item:nth-child(5){
+  z-index:7;
+  right:0;
+  top:50%;
+  background:#5C6BC0;
+  width:25%;
+  height:50%;
+  -webkit-animation: slidein4 0.4s forwards 1.8s;
+          animation: slidein4 0.4s forwards 1.8s;
+}
+.item:nth-child(6){
+  z-index:6;
+  left:75%;
+  bottom:0;
+  background:#26C6DA;
+  width:25%;
+  height:25%;
+}
+
+/* Animations */
+/* "Authentic Motion" */
+@-webkit-keyframes slidein1 {
+  0% {width:100%;}
+  100% {width:50%;}
+}
+@keyframes slidein1 {
+  0% {width:100%;}
+  100% {width:50%;}
+}
+@-webkit-keyframes slidein2 {
+  0% {height:100%;}
+  100% {height:50%;}
+}
+@keyframes slidein2 {
+  0% {height:100%;}
+  100% {height:50%;}
+}
+@-webkit-keyframes slidein3 {
+  0% {width:50%;}
+  100% {width:25%;}
+}
+@keyframes slidein3 {
+  0% {width:50%;}
+  100% {width:25%;}
+}
+@-webkit-keyframes slidein4 {
+  0% {height:50%;}
+  100% {height:25%;}
+}
+@keyframes slidein4 {
+  0% {height:50%;}
+  100% {height:25%;}
+}
+@-webkit-keyframes slidein5 {
+  0% {width:25%;}
+  100% {width:12.5%;}
+}
+@keyframes slidein5 {
+  0% {width:25%;}
+  100% {width:12.5%;}
+}
+@-webkit-keyframes fadeout {
+  0% {opacity:1;background:#26A69A;}
+  50% {background:#4DB6AC;} /* Fade lighter: #00897B */
+  99% {height:100%;width:100%;opacity:0;}
+  100% {height:0;width:0;opacity:0;}
+}
+@keyframes fadeout {
+  0% {opacity:1;background:#26A69A;}
+  50% {background:#4DB6AC;} /* Fade lighter: #00897B */
+  99% {height:100%;width:100%;opacity:0;}
+  100% {height:0;width:0;opacity:0;}
+}
+@-webkit-keyframes fadein {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+@keyframes fadein {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+@-webkit-keyframes ellipsis {
+    0%   {color: transparent; text-shadow: none;}
+    1%   {color: #333; text-shadow: .5em 0 0 transparent, 1em 0 0 transparent;}
+    26%  {color: black; text-shadow: .5em 0 0 transparent, 1em 0 0 transparent;}
+    51%  {color: black; text-shadow: .5em 0 0 black, 1em 0 0 transparent;}
+    76%  {color: black; text-shadow: .5em 0 0 black, 1em 0 0 black;}
+    100% {color: black; text-shadow: .5em 0 0 black, 1em 0 0 black;}
+}
+@keyframes ellipsis {
+    0%   {color: transparent; text-shadow: none;}
+    1%   {color: #333; text-shadow: .5em 0 0 transparent, 1em 0 0 transparent;}
+    26%  {color: black; text-shadow: .5em 0 0 transparent, 1em 0 0 transparent;}
+    51%  {color: black; text-shadow: .5em 0 0 black, 1em 0 0 transparent;}
+    76%  {color: black; text-shadow: .5em 0 0 black, 1em 0 0 black;}
+    100% {color: black; text-shadow: .5em 0 0 black, 1em 0 0 black;}
+}
+
+/* Borders */
+.item > .border:nth-child(2) {
+  width:20px;
+  height:100%;
+  left:-20px;
+}
+.item > .border:nth-child(3) {
+  width:20px;
+  height:100%;
+  right:-20px;
+}
+.item > .border:nth-child(4) {
+  width:100%;
+  height:20px;
+  top:-20px;
+}
+.item > .border:nth-child(5) {
+  width:100%;
+  height:20px;
+  bottom:-20px;
+}
+
+/* Border Animation */
+.item:hover > .border:nth-child(2){
+  left:0;
+}
+.item:hover > .border:nth-child(3) {
+  right:0;
+}
+.item:hover > .border:nth-child(4) {
+  top:0;
+}
+.item:hover > .border:nth-child(5) {
+  bottom:0;
+}
+
+/* Added Material Button */
+.circle {
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.075);
+  border-radius: 50%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+.circle.animate {
+  -webkit-animation: effect 0.65s linear;
+          animation: effect 0.65s linear;
+}
+
+@-webkit-keyframes effect {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+
+@keyframes effect {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+
+#profile{
+    position:absolute;
+    top:200px;
+    left:285px;
+    font-size:80px;
+}
+#settings{
+    position:absolute;
+    top:100px;
+    left:285px;
+    font-size:80px;
+}
+#listass{
+    position:absolute;
+    top:120px;
+    left:120px;
+    font-size:80px;
+}
+#add_materia{
+    position:absolute;
+    top:80px;
+    left:120px;
+    font-size:80px;
+}
+#a_1{
+    height:547px;
+    width:440px;
+}
+#a_2{
+    height:439px;
+    width:450px;
+}
+#a_3{
+    height:439px;
+    width:443px;
+}
+#a_4{
+    width:910px;
+    height:100px;
+}
+

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<style type="text/css">
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+<center><h3>Inscribir alumno</h3></center>
+<div id="login-page" class="row">
+	 	<div class="col s12 z-depth-6 card-panel">
+	 		 <form id="miForm" action="."  method="POST" enctype="multipart/form-data">
+	 		 	{% csrf_token %}
+	 		 	<div class="row">
+		            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="alum" id="id_alum">
+		              <label for="alum" data-error="wrong" data-success="right">Numero de control</label>
+		            </div>
+	            </div>
+	            <div class="row">
+		            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="materi" id="id_materi">
+		              <label for="materi" data-error="wrong" data-success="right">Serie de Materia</label>
+		            </div>
+	            </div>
+		           
+	            <div class="row">
+		            <button class="btn waves-effect waves-light col s12" type="submit" name="action">Inscribir
+		            </button>
+          		</div>
+	 		 </form>
+	 	</div>
+	 </div>
+{% endblock %}

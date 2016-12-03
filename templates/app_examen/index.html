@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+{% if user.is_authenticated %}
+  {% if user.profile.categoria = "maestros" %}
+    <label><b>Eres un profe</b></label>
+    {{user.profile.n_empleado}}
+  {% elif user.alumno.categoria = "estudiante"%}
+    <label><b>Eres un estudiante</b></label>
+  {%endif%}
+{% elif not user.is_authenticated %}
+  <script src="{% static 'materialize/js/jquery-2.2.1.js'%}"> </script>
+  <link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css'%}">
+  <script src="{% static 'materialize/js/materialize.min.js'%}"> </script>
+<style type="text/css">
+  body {
+    height: 100%;
+}
+html {
+    display: table;
+    margin: auto;Username
+
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background: #4ECDC4;
+}
+
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+<br><br>
+<body>
+  <div id="login-page" class="row">
+      <div class="col s12 z-depth-6 card-panel">
+        <form class="login-form" method='POST' autocomplete="off">
+          {% csrf_token %}
+          <div class="row">
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mail_outline</i>
+              <input class="validate"  type="text" name="username">
+              <label for="email" data-error="wrong" data-success="right">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input class="validate" type="password" name="password">
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <div class="row">          
+            <div class="input-field col s12 m12 l12  login-text">
+                <input type="checkbox" id="remember-me" />
+                <label for="remember-me">Remember me</label>
+            </div>
+          </div>
+
+          <!--<div class="row">
+            <div class="input-field col s12">
+              <a href="#" class="btn waves-effect waves-light col s12" type="submit" value="Login" id= "login" >Login</a>
+            </div>
+          </div>-->
+
+          <div class="row">
+            <button class="btn waves-effect waves-light col s12" type="submit" name="action" id="login">Login
+            </button>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <p class="margin medium-small"><a href="/registro_maestro">Registrarse como maestro!</a></p>
+            </div>
+            <div class="input-field col s6 m6 l6">
+                <p class="margin right-align medium-small"><a href="/registro_alumno">Registrarse como estudiante!</a></p>
+            </div>          
+          </div>
+        </form>
+      </div>
+  </div>
+</body>
+</html>
+{%endif%}
+{% endblock %}
+
+

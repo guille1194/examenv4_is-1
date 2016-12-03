@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<div class="container">
+	<center><h2>Materias en curso de {{user.alumno.nombre}}</h2></center>
+	<div class="row">
+		<table class="responsive-table centered highlight bordered">
+		        <thead>
+		          <tr>
+		              <th data-field="serie">Serie</th>
+		              <th data-field="nombre">Nombre</th>
+		              <th data-field="maestro">Maestro</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		         {%for i in a_m%}
+		          <tr>
+		            <td>{{i.materi.serie}}</td>
+		            <td>{{i.materi.nombre}}</td>
+		            <td>{{i.materi.maestro_a.nombre}}</td>
+		          </tr>
+		          {%endfor%}
+		        </tbody>
+		</table>
+	</div>
+</div>
+{%endblock%}

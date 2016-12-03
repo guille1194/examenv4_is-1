@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<br>
+<br>
+<br>
+<center><h3>Listado de materias de {{user.profile.nombre}}</h3></center>
+
+<div class="container" id="l1">
+   <div class="row">
+            <table class="centered striped responsive-table" >
+                    <thead>
+                      <tr>                    	                          
+                          <th data-field="nombre">Materia</th>
+                          <th data-field="maestro_a">Maestro</th>
+                          <th data-field="serie">Serie</th>
+                          <th data-field="anadir_pregunta">Anadir pregunta</th>
+                          <th data-field="generar examen">Crear examen</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for materia in materias %}
+	                      <tr>
+	                            <td>{{materia.nombre}}<br></td>
+	                            <td>{{materia.maestro_a}}</td>
+	                            <td><a href="/detalle_materia/{{materia.serie}}">{{materia.serie}}</a></td>
+                              <td><i class="material-icons prefix"><a href="/anadir_pregunta/{{materia.serie}}">add</a></i></td>
+                              <td><i class="material-icons prefix"><a href="/generar_examen/{{materia.serie}}">add</a></i></td>                         
+	                      </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+    </div>
+</div>
+       
+<div class="row">
+        <div class="col s12 m4 l12 push-l11">
+            <a class="btn-floating btn-large waves-effect waves-light red" href="/registro_materia"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<style type="text/css">
+#login-page {
+   width: 500px;
+}
+
+.card {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -moz-transform: translate(-50%, -50%)
+     -webkit-transform: translate(-50%, -50%)
+     -ms-transform: translate(-50%, -50%)
+     -o-transform: translate(-50%, -50%)
+     transform: translate(-50%, -50%);
+}
+</style>
+
+<div id="login-page" class="row">
+	<center><h5>Ingrese una respuesta</h5></center>
+      <div class="col s12 z-depth-6 card-panel">
+		<form  action="."  method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+	         
+
+	          <div class="row">
+	            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="pregun" id="id_pregun" value="{{object.id}}">
+		              <label for="pregun">Pregunta</label>
+	            </div>
+          	  </div>
+
+          	  <!--<div class="row">
+	          	  <div class="input-field col s12">
+					    <select name="pregun" id="id_pregun" >
+					      <option value="" disabled selected>Choose your option</option>
+					      {%for item in preguntas%}
+					      <option value="{{item.id}}">{{item.nombre}}</option>
+					      {%endfor%}
+					    </select>
+					    <label>Seleccione pregunta</label>
+				  </div>
+			  </div>-->
+
+          	  <div class="row">
+	            <div class="input-field col s12">
+		              <i class="material-icons prefix">person_outline</i>
+		              <input class="validate"  type="text" name="nombre" id="id_nombre">
+		              <label for="nombre">Respuesta</label>
+	            </div>
+          	  </div>
+
+          	  <div class="row">
+	          	   <p class ="col s12 m12 l12">
+		              <input type="checkbox" id="id_correcta"  class="filled-in" name="correcta" />
+		              <label for="id_correcta">Correcta</label>
+	               </p>
+               </div>
+
+          	  <div class="row">
+		            <button class="btn waves-effect waves-light col s12" type="submit" name="action">Registrar
+		            </button>
+          	  </div>
+          	  
+		</form>
+		<!--<input type="text" id = "id_pregunta">
+		<input type="submit" id="boton-cargar">-->
+	</div>
+</div>
+<!--<script type="text/javascript">
+$(document).ready(function(){
+        $('#boton-cargar').click(function(){
+
+            /*Obtener datos almacenados*/
+            var pregunta = localStorage.getItem("Pregunta");
+
+            console.log(pregunta);
+            
+
+            document.getElementById("id_pregunta").value = pregunta;
+            
+        });
+    });
+</script>-->
+{%endblock%}
