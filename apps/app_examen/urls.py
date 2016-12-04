@@ -14,4 +14,6 @@ urlpatterns = [
 	url(r'^anadir_pregunta/(?P<pk>[-\w]+)/$',anadir_pregunta,name='anadir_pregunta'),
 	url(r'^generar_examen/(?P<pk>[-\w]+)/$',generar_examen,name='crear_examen'),
 	url(r'^anadir_respuesta/$',anadir_respuesta,name='anadir_respuesta'),
+	url(r'^materias_alumno/$',materias_alumno,name='materias_alumno'),
+
 ]
