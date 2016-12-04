@@ -105,3 +105,14 @@ class examen(models.Model):
 
 	class Meta:
 		unique_together = ('id_materia','unidad')
+
+
+
+class realizar_examen(models.Model):
+	id = models.AutoField(primary_key=True)
+	id_alumno = models.ForeignKey(alumno)
+	id_examen = models.ForeignKey(examen)
+	puntuacion = models.IntegerField()
+
+	def __unicode__(self):
+		return '%s'%(self.id)

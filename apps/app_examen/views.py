@@ -5,7 +5,7 @@ from .forms import UserForm, estudianteForm, materiaForm, alumno_materiaForm, pr
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from .models import maestro, materia, alumno, alumno_materia, pregunta, respuesta, pregunta_respuesta, examen
+from .models import realizar_examen, maestro, materia, alumno, alumno_materia, pregunta, respuesta, pregunta_respuesta, examen
 from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.models import User
@@ -184,4 +184,31 @@ def materias_alumno(request):
 	ctx = {'a_m':a_m,}
 	print a_m
 	return render(request,'app_examen/materias_alumno.html',ctx)
+
+
+def examen_detalle(request, id=None):
+	examen = get_object_or_404(examen, id_examen=id)
+	ctx = {
+		"object_list": "eee",
+		"examen": examen,
+	}
+
+def examen_lista(request):
+	current_user = request.user.alumno.n_control
+	queryset_list = examen.objects.all().order_by('unidad')
+	queryset_list2 = alumno_materia.objects.filter(alum = current_user)
+	paginator = Paginator(queryset_list, 3)
+
+	page = request.GET.get('page')
+	try:
+		queryset = paginator.page(page)
+	except PageNotAnInteger:
+		queryset = paginator.page(paginator.num_pages)
+	ctx = {
+			"object_list": queryset_list,
+			"object_list2":queryset_list2,
+	}
+	return render(request, "app_examen/examen_lista.html",ctx)
+
+
 

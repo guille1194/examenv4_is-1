@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import maestro, materia, alumno, alumno_materia, pregunta, respuesta, pregunta_respuesta, examen
+from .models import realizar_examen, maestro, materia, alumno, alumno_materia, pregunta, respuesta, pregunta_respuesta, examen
 # Register your models here.
 @admin.register(maestro)
 class maestro_admin(admin.ModelAdmin):
@@ -35,3 +35,5 @@ class pregunta_respuesta_admin(admin.ModelAdmin):
 @admin.register(examen)
 class examen_admin(admin.ModelAdmin):
 	list_display = ('id_examen','id_materia','id_alumno','unidad','get_pregunta_respuesta')
+
+#@admin.register(realizar_examen)

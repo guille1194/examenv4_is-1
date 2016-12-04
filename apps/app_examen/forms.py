@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import maestro, alumno, pregunta_respuesta, examen, materia, alumno_materia, pregunta, respuesta
+from .models import realizar_examen, maestro, alumno, pregunta_respuesta, examen, materia, alumno_materia, pregunta, respuesta
 from django.forms import ModelMultipleChoiceField
 from django.forms import MultiWidget
 from django.forms import widgets
@@ -74,7 +74,10 @@ class examenForm(forms.ModelForm):
 	#	self.fields["id_pregunta_respuesta"].widget = forms.widgets.CheckboxSelectMultiple()
 	#	self.fields["id_pregunta_respuesta"].queryset = pregunta_respuesta.objects.all()
 		
-
+class realizar_examen(forms.ModelForm):
+	class Meta:
+		model = realizar_examen
+		fields = '__all__'
 		    
 
 

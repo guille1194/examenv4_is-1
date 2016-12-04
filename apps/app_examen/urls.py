@@ -16,4 +16,10 @@ urlpatterns = [
 	url(r'^anadir_respuesta/$',anadir_respuesta,name='anadir_respuesta'),
 	url(r'^materias_alumno/$',materias_alumno,name='materias_alumno'),
 
+
+
+
+	
+	url(r'^examen_lista/$',examen_lista,name='examen_lista'),
+
 ]
