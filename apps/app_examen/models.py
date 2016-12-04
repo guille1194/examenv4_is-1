@@ -82,7 +82,7 @@ class pregunta_respuesta(models.Model):
 	id_respuesta = models.ManyToManyField(respuesta)
 
 	def __unicode__(self):
-		return u'%s'%(self.id_pregunta_respuesta)
+		return u'%s'%(self.id_pregunta.nombre)
 
 	def get_pregunta(self):
 		return "\n".join([p.nombre for p in self.id_pregunta.all()])
@@ -98,10 +98,20 @@ class examen(models.Model):
 	id_pregunta_respuesta = models.ManyToManyField(pregunta_respuesta)
 
 	def __unicode__(self):
-		return '%s'%(self.id_examen)
+		return '%s %d'%(self.id_examen,self.unidad)
 
 	def get_pregunta_respuesta(self):
 		return "\n".join([str(p.id_pregunta_respuesta) for p in self.id_pregunta_respuesta.all()])
 
 	class Meta:
 		unique_together = ('id_materia','unidad')
+
+
+class responder_examen(models.Model):
+	id = models.AutoField(primary_key=True)
+	id_examen = models.ForeignKey(examen)
+	id_alumno = models.ForeignKey(alumno)
+	visible = models.BooleanField(default=False)
+
+	def __unicode__(self):
+		return '%s'%(self.id)

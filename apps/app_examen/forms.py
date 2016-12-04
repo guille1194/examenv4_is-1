@@ -49,4 +49,16 @@ class examenForm(forms.ModelForm):
 	class Meta:
 		model = examen
 		fields = '__all__'
+
+	def __init__(self,*args,**kwargs):
+		brand = kwargs.pop('brand')
+		super(examenForm,self).__init__(*args, **kwargs):
+
+		self.fields["id_pregunta_respuesta"].widget= forms.widgets.CheckboxSelectMultiple()
+		self.fields["id_pregunta_respuesta"].help_text = ""
+		self.fields["id_pregunta_respuesta"].queryset = pregunta_respuesta.objects.filter(id_pregunta_respuesta=brand)
+
+		    
+
+
 		

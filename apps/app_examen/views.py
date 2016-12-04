@@ -146,20 +146,36 @@ def anadir_respuesta(request):
 	return render(request,'app_examen/respuesta.html',{"object":pregunta_get})
 
 def generar_examen(request,pk):
+	form = examenForm(request.POST or None)
 	insta = get_object_or_404(materia,serie=pk)
 	pregunta_res = pregunta_respuesta.objects.all()
 	ctx = {
 		'object':insta,
 		'pregunta_res':pregunta_res,
+		'form':form,
 	}
+
+	context = {}
 	print pregunta_res
-	ids = pregunta_respuesta.objects.filter(id_pregunta_respuesta = 1).values()
-	form = examenForm(request.POST or None,initial=ids)
+	if 'id_respuesta' in request.GET:
+		context['id_respuesta'] = request.GET.get('id_respuesta')
+		return context
+		#print context
+
+	i = 0
+	for i in context.items():
+		i += 1
+		print i 
+		return i 
+	
+
+	
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.id_materia = materia.objects.get(serie = request.POST['id_materia'])
-		instance.get_pregunta_respuesta = pregunta_respuesta.objects.get(id_pregunta_respuesta = request.POST['id_pregunta_respuesta'])
+		instance.id_respuesta = i
 		instance.save()
+		instance.save_m2m()
 	return render(request,'app_examen/crear_examen.html',ctx)
 
 
