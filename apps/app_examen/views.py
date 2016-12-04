@@ -145,7 +145,9 @@ def anadir_respuesta(request):
 		print 'error en captura de pregunta'
 	return render(request,'app_examen/respuesta.html',{"object":pregunta_get})
 
+
 def generar_examen(request,pk):
+	#brand = None
 	form = examenForm(request.POST or None)
 	insta = get_object_or_404(materia,serie=pk)
 	pregunta_res = pregunta_respuesta.objects.all()
@@ -165,17 +167,15 @@ def generar_examen(request,pk):
 	i = 0
 	for i in context.items():
 		i += 1
-		print i 
-		return i 
-	
-
+		#print i 
+		return i
 	
 	if form.is_valid():
-		instance = form.save(commit=False)
+		instance = form.save()
 		instance.id_materia = materia.objects.get(serie = request.POST['id_materia'])
-		instance.id_respuesta = i
+		#instance.id_pregunta_respuesta = pregunta_respuesta.objects.get(id_pregunta_respuesta=request.POST['id_pregunta_respuesta']).values()
+		print instance.id_pregunta_respuesta
 		instance.save()
-		instance.save_m2m()
 	return render(request,'app_examen/crear_examen.html',ctx)
 
 

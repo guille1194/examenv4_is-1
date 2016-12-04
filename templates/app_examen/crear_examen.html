@@ -22,8 +22,8 @@
       <div class="col s12 z-depth-6 card-panel">
 		<form  action="." method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
-			{{form.as_p}}
-			<!--<div class="row">
+			<!--{{form.as_p}}-->
+			<div class="row">
 	          </div>
 
 	          <div class="row">
@@ -53,26 +53,17 @@
           	  	
 
 	            
-		    <!--<div class="input-field col s12">
-			    <select multiple name="id_pregunta_respuesta">
-					<option value="" disabled selected>Choose your option</option>
-					      <!--{%for item in pregunta_res %}-->
-						<!--<option value="{{item.id_pregunta_respuesta}}">{{item.id_pregunta_respuesta}}</option>
-						<option value="dbcdhbc">hola</option>
-					      <!--{%endfor%}-->
-				<!--</select>
-					    <label>Agrege preguntas</label>
-		    </div>-->
+		    
 
-		    <!--<div class="input-field col s12">
+		    <div class="input-field col s12">
 			    <select multiple name="id_pregunta_respuesta">
 			      <option value="" disabled selected>Choose your option</option>
 			      {%for item in pregunta_res %}
 			      	<option value="{{item.id_pregunta_respuesta}}">{{item.id_pregunta.nombre}}</option>
 			      {%endfor%}
 			    </select>
-			    <label>Materialize Multiple Select</label>
-			</div>-->
+			    <label>Selecciones preguntas</label>
+			</div>
 
 	            
 

@@ -98,7 +98,10 @@ class examen(models.Model):
 	id_pregunta_respuesta = models.ManyToManyField(pregunta_respuesta)
 
 	def __unicode__(self):
-		return '%s %d'%(self.id_examen,self.unidad)
+		return self.id_examen,self.id_pregunta_respuesta
+
+	def __str__(self):
+		return self.id_examen,self.id_pregunta_respuesta
 
 	def get_pregunta_respuesta(self):
 		return "\n".join([str(p.id_pregunta_respuesta) for p in self.id_pregunta_respuesta.all()])
