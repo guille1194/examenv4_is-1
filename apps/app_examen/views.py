@@ -178,5 +178,10 @@ def generar_examen(request,pk):
 		instance.save()
 	return render(request,'app_examen/crear_examen.html',ctx)
 
-
+def materias_alumno(request):
+	current_user = request.user.alumno.n_control
+	a_m = alumno_materia.objects.filter(alum = current_user)
+	ctx = {'a_m':a_m,}
+	print a_m
+	return render(request,'app_examen/materias_alumno.html',ctx)
 
