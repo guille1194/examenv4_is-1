@@ -82,7 +82,7 @@ class pregunta_respuesta(models.Model):
 	id_respuesta = models.ManyToManyField(respuesta)
 
 	def __unicode__(self):
-		return u'%s'%(self.id_pregunta_respuesta)
+		return u'%s %s'%(self.id_pregunta_respuesta,self.id_pregunta)
 
 	def get_pregunta(self):
 		return "\n".join([p.nombre for p in self.id_pregunta.all()])

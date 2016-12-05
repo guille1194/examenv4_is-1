@@ -74,7 +74,8 @@
 				      {% for item3 in item2.id_respuesta.all %}
 				      	<option value="{{item3.id}}">{{item3.nombre}}</option>
 				      {%endfor%}
-				    </select>				    
+				    </select>
+				    <input type="text" value="{{item2.id_pregunta_respuesta}}" name="id_pregunta_respuesta"/>				    
 				</div>
 				{%endfor%}
 			{%endfor%}
