@@ -36,4 +36,6 @@ class pregunta_respuesta_admin(admin.ModelAdmin):
 class examen_admin(admin.ModelAdmin):
 	list_display = ('id_examen','id_materia','id_alumno','unidad','get_pregunta_respuesta')
 
-#@admin.register(realizar_examen)
+@admin.register(realizar_examen)
+class realizar_examen(admin.ModelAdmin):
+	list_display = ('id','id_alumno','id_examen','get_pregunta_respuesta','get_respuesta','puntuacion')

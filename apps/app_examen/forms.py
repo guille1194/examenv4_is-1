@@ -74,7 +74,7 @@ class examenForm(forms.ModelForm):
 	#	self.fields["id_pregunta_respuesta"].widget = forms.widgets.CheckboxSelectMultiple()
 	#	self.fields["id_pregunta_respuesta"].queryset = pregunta_respuesta.objects.all()
 		
-class realizar_examen(forms.ModelForm):
+class realizar_examenForm(forms.ModelForm):
 	class Meta:
 		model = realizar_examen
 		fields = '__all__'

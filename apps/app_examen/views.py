@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.views.generic import FormView, CreateView, ListView,DetailView,UpdateView,DeleteView
-from .forms import UserForm, estudianteForm, materiaForm, alumno_materiaForm, preguntaForm, respuestaForm, pregunta_respuestaForm, examenForm
+from .forms import UserForm, estudianteForm, materiaForm, alumno_materiaForm, preguntaForm, respuestaForm, pregunta_respuestaForm, examenForm, realizar_examenForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -185,30 +185,41 @@ def materias_alumno(request):
 	print a_m
 	return render(request,'app_examen/materias_alumno.html',ctx)
 
-
-def examen_detalle(request, id=None):
-	examen = get_object_or_404(examen, id_examen=id)
-	ctx = {
-		"object_list": "eee",
-		"examen": examen,
-	}
-
-def examen_lista(request):
+def detalle_examen(request,pk=None):
+	insta = get_object_or_404(materia,serie=pk)
 	current_user = request.user.alumno.n_control
-	queryset_list = examen.objects.all().order_by('unidad')
+	queryset_list = examen.objects.all()
 	queryset_list2 = alumno_materia.objects.filter(alum = current_user)
-	paginator = Paginator(queryset_list, 3)
-
-	page = request.GET.get('page')
-	try:
-		queryset = paginator.page(page)
-	except PageNotAnInteger:
-		queryset = paginator.page(paginator.num_pages)
 	ctx = {
-			"object_list": queryset_list,
-			"object_list2":queryset_list2,
+		"object":insta,
+		"object_list": queryset_list,
+		"object_list2":queryset_list2,
 	}
-	return render(request, "app_examen/examen_lista.html",ctx)
+	return render(request,'app_examen/detalle_examen.html',ctx)
 
+def realizar_examene(request,pk=None):
+	insta = get_object_or_404(examen,id_examen=pk)
+	current_user = request.user.alumno.n_control
+	queryset_list = examen.objects.filter(id_examen = insta.id_examen)
+	queryset_list2 = realizar_examen.objects.filter(id_examen = insta.id_examen)
+	form = realizar_examenForm(request.POST or None)
+	ctx = {
+		"object":insta,
+		"object_list": queryset_list,
+		"object_list2":queryset_list2,
+		"form":form,
+	}
+	context = {}
+	if 'id_respuesta' in request.GET:
+		context['id_respuesta'] = request.GET.get('id_respuesta')
+	context['id_respuesta'] = request.GET.get('id_respuesta')
+	if form.is_valid():
+		instance = form.save()
+		instance.save()
+		return redirect('index_view')
+	else:
+		print "error T T"
+
+	return render(request,'app_examen/realizar_examen.html',ctx)
 
 

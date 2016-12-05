@@ -111,8 +111,18 @@ class examen(models.Model):
 class realizar_examen(models.Model):
 	id = models.AutoField(primary_key=True)
 	id_alumno = models.ForeignKey(alumno)
-	id_examen = models.ForeignKey(examen)
-	puntuacion = models.IntegerField()
+	id_examen = models.ForeignKey(examen,null=True,blank=True)
+	id_pregunta_respuesta = models.ManyToManyField(pregunta_respuesta,blank=True,null=True)
+	id_respuesta = models.ManyToManyField(respuesta,blank=True,null=True)
+	puntuacion = models.IntegerField(blank=True,null=True)
 
 	def __unicode__(self):
 		return '%s'%(self.id)
+
+	def get_pregunta_respuesta(self):
+		return "\n".join([str(p.id_pregunta_respuesta) for p in self.id_pregunta_respuesta.all()])
+
+	def get_respuesta(self):
+		return "\n".join([p.nombre for p in self.id_respuesta.all()])
+
+

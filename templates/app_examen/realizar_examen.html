@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<!--
+	{%for ro in object_list2%}
+			id de examen a responder: {{ro.id}}<br>
+			id objeto examen de la tabla examen{{object.id_examen}}<br>
+			alumno: {{ro.id_alumno}}<br>
+			id examen que esta respoder examen:{{ro.id_examen}}<br>
+			preguntas;<br>
+			{% for m in ro.id_examen.id_pregunta_respuesta.all%}
+				{{m.id_pregunta}}<br>
+				{%for n in m.id_respuesta.all%}
+					{{n.nombre}}<b>{{n.correcta}}</b><br>
+				{%endfor%}
+				<br>
+			{%endfor%}
+			<br><br>
+	{%endfor%}
+	-->
+<center><h5>Conteste el examen correctamente</h5></center>
+<div class="row">
+		
+		<div class="input-field col s6">
+			<label>Materia</label>
+			<input type="text" value="{{object.id_materia.nombre}}">
+		</div>
+		<div class="input-field col s6">
+			<label>Serie</label>
+			<input type="text" value="{{object.id_materia.serie}}">
+		</div>
+		<div class="input-field col s6">
+			<label>Maestro</label>
+			<input type="text" value="{{object.id_materia.maestro_a.nombre}}">
+		</div>
+		<div class="input-field col s6">
+			<label>Unidad</label>
+			<input type="text" value="{{object.unidad}}">
+		</div>
+		<br><br>
+		<div class="input-field col s6">
+			<label>Nombre</label>
+			<input type="text" value="{{user.alumno.nombre}}">
+		</div>
+    <form  action="." method="POST" enctype="multipart/form-data">
+    	{% csrf_token %}
+    	<!--{{form.as_p}}-->
+    	<div class="container">
+    		<div class="input-field col s6">
+	    		<label>Numero de control</label>
+		        <input type="text" value="{{user.alumno.n_control}}" name="id_alumno">
+	   		</div>
+
+	   		<input type="hidden"  value="{{object.id_examen}}" name="id_examen">
+
+	   		<!--{% for item in object_list %}
+	   			{% for item2 in item.id_pregunta_respuesta.all%}
+	   				<h5>{{item2.id_pregunta}}</h5>
+	   				{% for item3 in item2.id_respuesta.all %}
+	   					<p>
+					      <input type="checkbox" id="{{item3.id}}" name="id_respuesta"/>
+					      <label for="{{item3.id}}">{{item3.nombre}}</label>
+					    </p>
+	   				{% endfor %}
+	   			{% endfor %}
+	   		{% endfor %}-->
+
+
+	   		{% for item in object_list %}
+	   			{% for item2 in item.id_pregunta_respuesta.all%}
+		   		<div class="input-field col s12">
+				    <select multiple name="id_respuesta">
+				      <option value="" disabled selected>{{item2.id_pregunta}}</option>
+				      {% for item3 in item2.id_respuesta.all %}
+				      	<option value="{{item3.id}}">{{item3.nombre}}</option>
+				      {%endfor%}
+				    </select>				    
+				</div>
+				{%endfor%}
+			{%endfor%}
+
+
+
+
+
+
+	       <div class="row">
+			    <button class="btn waves-effect waves-light col s12" type="submit" name="action" id="boton-guardar" name="boton-guardar">Enviar
+			    </button>
+	        </div>
+
+    	</div>
+    </form>
+  </div>
+{%endblock%}

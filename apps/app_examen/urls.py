@@ -15,11 +15,13 @@ urlpatterns = [
 	url(r'^generar_examen/(?P<pk>[-\w]+)/$',generar_examen,name='crear_examen'),
 	url(r'^anadir_respuesta/$',anadir_respuesta,name='anadir_respuesta'),
 	url(r'^materias_alumno/$',materias_alumno,name='materias_alumno'),
+	url(r'^detalle_examen/(?P<pk>[-\w]+)/$',detalle_examen,name='detalle_examen'),
+	url(r'^realizar_examen/(?P<pk>[-\w]+)/$',realizar_examene,name='realizar_examen'),
 
 
 
 
 	
-	url(r'^examen_lista/$',examen_lista,name='examen_lista'),
+	#url(r'^examen_lista/$',examen_lista,name='examen_lista'),
 
 ]

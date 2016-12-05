@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<div class="container">
+  <center><h2>Examenes en curso de {{user.alumno.nombre}}</h2></center>
+  <div class="row">
+    <table class="responsive-table centered highlight bordered">
+            <thead>
+              <tr>
+                  <th data-field="id_examen">Clave</th>
+                  <th data-field="examen">Examen</th>
+                  <th data-field="unidad">Unidad</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            {%for item2 in object_list2%}<!--alumno-materia-->
+               {%for item in object_list%}<!--examen-->
+                 {%if item2.materi == item.id_materia%}
+                   {%if object.serie = item2.materi.serie%}
+                      <tr>
+                        <td>{{item.id_examen}}</td>
+                        <td>{{item.id_materia}}</td>
+                        <td><a href="/realizar_examen/{{item.id_examen}}">{{item.unidad}}</a></td>
+                      </tr>
+                    {%endif%}
+                  {%endif%}
+                {%endfor%}
+            {%endfor%}
+            </tbody>
+    </table>
+  </div>
+</div>
+{%endblock%}
