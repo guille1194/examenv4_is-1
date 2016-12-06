@@ -215,27 +215,22 @@ def realizar_examene(request,pk=None):
 	lista = []
 	lista2 = []
 	for i in r_corectas:
-		lista.append(i)
-
-	#print lista
-	#for j in request.POST.get('id_respuesta'):
-	#	lista2.append(j)
-
-	#print lista2
-	#print "hola"
-	#print lista
-
+		lista.append(i.id)
 	respuestas = realizar_examen.objects.filter(id_examen=pk)
-	for m in respuestas:
-		for l in m.id_respuesta.all():
-			print l.correcta
-			print l.nombre
-
-
 	if form.is_valid():
 		instance = form.save()
 		instance.save()
+		for l in request.POST.getlist('id_respuesta'):
+			lista2.append(l)
+			
+
+
+
+		
+		
+		
 		return redirect('index_view')
+
 	return render(request,'app_examen/realizar_examen.html',ctx)
 
 

@@ -72,7 +72,7 @@
 				    <select multiple name="id_respuesta">
 				      <option value="" disabled selected>{{item2.id_pregunta}}</option>
 				      {% for item3 in item2.id_respuesta.all %}
-				      	<option value="{{item3.id}}">{{item3.nombre}}</option>
+				      	<option value="{{item3.id}}">{{item3.nombre}}{{item3.id}}</option>
 				      {%endfor%}
 				    </select>
 				    <input type="text" value="{{item2.id_pregunta_respuesta}}" name="id_pregunta_respuesta"/>				    
