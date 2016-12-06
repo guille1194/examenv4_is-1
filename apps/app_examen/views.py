@@ -222,7 +222,7 @@ def realizar_examene(request,pk=None):
 		instance.save()
 		for l in request.POST.getlist('id_respuesta'):
 			lista2.append(l)
-			
+			print "ok"
 
 
 
