@@ -6,6 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator,MaxValue
 from django.utils import timezone
 from multiselectfield import MultiSelectField
 import datetime
+
 # Create your models here.
 class maestro(models.Model):
 	user_perfil = models.OneToOneField(User, related_name="profile")
@@ -125,4 +126,10 @@ class realizar_examen(models.Model):
 	def get_respuesta(self):
 		return "\n".join([p.nombre for p in self.id_respuesta.all()])
 
+	def add_to_score(self,points):
+		self.current_score += int(points)
+		self.save()
 
+	@property
+	def get_current_score(self):
+		return self.current_score

@@ -119,13 +119,9 @@ def anadir_pregunta(request,pk=None):
 
 	return render(request,'app_examen/anadir_pregunta.html',ctx)
 
-def anadir_respuesta(request):
+def anadir_respuesta(request,pk=None):
 	pregunta_get = pregunta.objects.latest('id')
-	#context = {}
-	#if 'id_respuesta' in request.GET:
-	#	context['id_respuesta'] = request.GET.get('id_respuesta')
-	#context['id_respuesta'] = request.GET.get('nombre')
-	#initial={'id_respuesta':request.GET.get('nombre')}
+	respuesta_get = respuesta.objects.latest('id')
 	form = respuestaForm(request.POST or None)
 	form2 = pregunta_respuestaForm(request.POST or None)
 	if form.is_valid():
@@ -133,21 +129,16 @@ def anadir_respuesta(request):
 		instance.pregun = pregunta.objects.get(id=request.POST['pregun'])
 		instance.nombre = request.POST['nombre']
 		instance.save()
-		if form2.is_valid():
-			instance2 = form.save(commit=False)
-			instance2.id_pregunta = instance.pregun
-			instance2.id_respuesta = instance.nombre
-			instance2.save()		
-			return redirect('anadir_respuesta')
-		else:
-			print 'error en captura de respuesta'
+		p = pregunta_respuesta()
+		p.id_pregunta = instance.pregun 
+		p.save()
+		p.id_respuesta.add(respuesta_get)
 	else:
 		print 'error en captura de pregunta'
 	return render(request,'app_examen/respuesta.html',{"object":pregunta_get})
 
 
 def generar_examen(request,pk):
-	#brand = None
 	form = examenForm(request.POST or None)
 	insta = get_object_or_404(materia,serie=pk)
 	pregunta_res = pregunta_respuesta.objects.all()
@@ -174,7 +165,7 @@ def generar_examen(request,pk):
 		instance = form.save()
 		instance.id_materia = materia.objects.get(serie = request.POST['id_materia'])
 		#instance.id_pregunta_respuesta = pregunta_respuesta.objects.get(id_pregunta_respuesta=request.POST['id_pregunta_respuesta']).values()
-		print instance.id_pregunta_respuesta
+		#print instance.id_pregunta_respuesta
 		instance.save()
 	return render(request,'app_examen/crear_examen.html',ctx)
 
@@ -182,7 +173,7 @@ def materias_alumno(request):
 	current_user = request.user.alumno.n_control
 	a_m = alumno_materia.objects.filter(alum = current_user)
 	ctx = {'a_m':a_m,}
-	print a_m
+	#print a_m
 	return render(request,'app_examen/materias_alumno.html',ctx)
 
 def detalle_examen(request,pk=None):
@@ -203,6 +194,10 @@ def realizar_examene(request,pk=None):
 	queryset_list = examen.objects.filter(id_examen = insta.id_examen)
 	queryset_list2 = realizar_examen.objects.filter(id_examen = insta.id_examen)
 	form = realizar_examenForm(request.POST or None)
+	guess = request.POST.get('id_respuesta')
+    #is_correct = self.question.check_if_correct(guess)
+    
+	#print guess
 	ctx = {
 		"object":insta,
 		"object_list": queryset_list,
@@ -213,13 +208,34 @@ def realizar_examene(request,pk=None):
 	if 'id_respuesta' in request.GET:
 		context['id_respuesta'] = request.GET.get('id_respuesta')
 	context['id_respuesta'] = request.GET.get('id_respuesta')
+
+	r_corectas = respuesta.objects.filter(correcta = True)
+	promedio = 0
+	print promedio
+	lista = []
+	lista2 = []
+	for i in r_corectas:
+		lista.append(i)
+
+	#print lista
+	#for j in request.POST.get('id_respuesta'):
+	#	lista2.append(j)
+
+	#print lista2
+	#print "hola"
+	#print lista
+
+	respuestas = realizar_examen.objects.filter(id_examen=pk)
+	for m in respuestas:
+		for l in m.id_respuesta.all():
+			print l.correcta
+			print l.nombre
+
+
 	if form.is_valid():
 		instance = form.save()
 		instance.save()
 		return redirect('index_view')
-	else:
-		print "error T T"
-
 	return render(request,'app_examen/realizar_examen.html',ctx)
 
 

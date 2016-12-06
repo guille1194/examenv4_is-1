@@ -22,7 +22,7 @@
       <div class="col s12 z-depth-6 card-panel">
 		<form  action="." method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
-			<!--{{form.as_p}}-->
+			
 			<div class="row">
 	          </div>
 
@@ -59,7 +59,9 @@
 			    <select multiple name="id_pregunta_respuesta">
 			      <option value="" disabled selected>Choose your option</option>
 			      {%for item in pregunta_res %}
+			      	{%if object.serie == item.id_pregunta.materia.serie%}
 			      	<option value="{{item.id_pregunta_respuesta}}">{{item.id_pregunta.nombre}}</option>
+			      	{%endif%}
 			      {%endfor%}
 			    </select>
 			    <label>Selecciones preguntas</label>
