@@ -38,4 +38,4 @@ class examen_admin(admin.ModelAdmin):
 
 @admin.register(realizar_examen)
 class realizar_examen(admin.ModelAdmin):
-	list_display = ('id','id_alumno','id_examen','get_pregunta_respuesta','get_respuesta','puntuacion')
+	list_display = ('id','id_materia','id_alumno','id_examen','unidad','get_pregunta_respuesta','get_respuesta','puntuacion','done')

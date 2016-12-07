@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnIn
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.models import User
 from django.views.generic.edit import ModelFormMixin
+from decimal import Decimal  
 # Create your views here.
 
 def index_view(request):
@@ -124,15 +125,26 @@ def anadir_respuesta(request,pk=None):
 	respuesta_get = respuesta.objects.latest('id')
 	form = respuestaForm(request.POST or None)
 	form2 = pregunta_respuestaForm(request.POST or None)
+	all_res = respuesta.objects.filter(pregun=pregunta_get)
+	lista4 = []
+	for i in all_res:
+		lista4.append(i)
+
+	print lista4
+
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.pregun = pregunta.objects.get(id=request.POST['pregun'])
 		instance.nombre = request.POST['nombre']
 		instance.save()
-		p = pregunta_respuesta()
-		p.id_pregunta = instance.pregun 
-		p.save()
-		p.id_respuesta.add(respuesta_get)
+		#################################################################
+		if instance.terminar == True:
+			p = pregunta_respuesta()
+			p.id_pregunta = instance.pregun
+			p.save()
+			p.id_respuesta =  lista4
+			return redirect('index_view')
+		
 	else:
 		print 'error en captura de pregunta'
 	return render(request,'app_examen/respuesta.html',{"object":pregunta_get})
@@ -181,18 +193,22 @@ def detalle_examen(request,pk=None):
 	current_user = request.user.alumno.n_control
 	queryset_list = examen.objects.all()
 	queryset_list2 = alumno_materia.objects.filter(alum = current_user)
+	queryset_list3 = realizar_examen.objects.all()
 	ctx = {
 		"object":insta,
 		"object_list": queryset_list,
 		"object_list2":queryset_list2,
+		"object_list3":queryset_list3,
 	}
 	return render(request,'app_examen/detalle_examen.html',ctx)
+
 
 def realizar_examene(request,pk=None):
 	insta = get_object_or_404(examen,id_examen=pk)
 	current_user = request.user.alumno.n_control
 	queryset_list = examen.objects.filter(id_examen = insta.id_examen)
 	queryset_list2 = realizar_examen.objects.filter(id_examen = insta.id_examen)
+	queryset_list3 = realizar_examen.objects.filter(id_examen= insta.id_examen)
 	form = realizar_examenForm(request.POST or None)
 	guess = request.POST.get('id_respuesta')
     #is_correct = self.question.check_if_correct(guess)
@@ -202,6 +218,7 @@ def realizar_examene(request,pk=None):
 		"object":insta,
 		"object_list": queryset_list,
 		"object_list2":queryset_list2,
+		"object_list3":queryset_list3,
 		"form":form,
 	}
 	context = {}
@@ -210,27 +227,59 @@ def realizar_examene(request,pk=None):
 	context['id_respuesta'] = request.GET.get('id_respuesta')
 
 	r_corectas = respuesta.objects.filter(correcta = True)
-	promedio = 0
-	print promedio
 	lista = []
 	lista2 = []
+	lista3= []
 	for i in r_corectas:
 		lista.append(i.id)
 	respuestas = realizar_examen.objects.filter(id_examen=pk)
 	if form.is_valid():
 		instance = form.save()
-		instance.save()
+		
 		for l in request.POST.getlist('id_respuesta'):
-			lista2.append(l)
-			print "ok"
+			lista2.append(int(l))
+		#verifica que los respuestas del examen que se contextto sean correctas
+		for l in lista:
+			if l in lista2:
+				lista3.append(l)
+
+		total_res = float(len(lista2)*10)#primeo
+		aciertos = float(len(lista3)*10)#segundo
+		promedio = float(((aciertos/total_res)*.100)*1000)
+		#print float(promedio)
+		#print total_res
+		#print aciertos
+		instance.puntuacion = float(promedio)
+		instance.done = True
+		instance.save()
 
 
-
-		
-		
-		
 		return redirect('index_view')
 
 	return render(request,'app_examen/realizar_examen.html',ctx)
 
 
+#ojo cambiar la parte de las preguntas que compare las preguntas que hay como la logitud
+
+def calificaciones(request):
+	current_user = request.user.alumno.n_control
+	a_m = alumno_materia.objects.filter(alum = current_user)
+	ex = realizar_examen.objects.filter(id_alumno=current_user)
+	ctx = {'a_m':a_m,'ex':ex}
+	return render(request,'app_examen/calificaciones.html',ctx)
+
+def detalle_calificacion(request,pk=None):
+	current_user = request.user.alumno.n_control
+	mate = get_object_or_404(materia,serie=pk)
+	a_m = alumno_materia.objects.filter(alum = current_user)
+	ex = realizar_examen.objects.filter(id_alumno=current_user)
+	ctx = {'a_m':a_m,'ex':ex,'object':mate}
+	return render(request,'app_examen/detalle_calificaciones.html',ctx)
+
+def lista_calificaciones(request,pk=None):
+	current_user = request.user.profile.n_empleado
+	mate = get_object_or_404(materia,serie=pk)
+	#a_m = alumno_materia.objects.filter(alum = current_user)
+	ex = realizar_examen.objects.filter(id_materia=mate.serie)
+	ctx = {'ex':ex,'object':mate}
+	return render(request,'app_examen/lista_calificaciones.html',ctx)

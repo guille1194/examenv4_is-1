@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {%block content %}
 <div class="container">
-	<center><h2>Materias en curso de {{user.estudiante.nombre}}</h2></center>
+	<center><h2>Resultados por materia de {{user.alumno.nombre}}</h2></center>
 	<div class="row">
 		<table class="responsive-table centered highlight bordered">
 		        <thead>
@@ -10,7 +10,7 @@
 		              <th data-field="serie">Serie</th>
 		              <th data-field="nombre">Nombre</th>
 		              <th data-field="maestro">Maestro</th>
-		              <th data-field="examen">Examen</th>
+		              <th data-field="calificacion">Calificacion</th>
 		          </tr>
 		        </thead>
 
@@ -20,7 +20,7 @@
 		            <td>{{i.materi.serie}}</td>
 		            <td>{{i.materi.nombre}}</td>
 		            <td>{{i.materi.maestro_a.nombre}}</td>
-		            <td><a href="/detalle_examen/{{i.materi.serie}}">ver</a></td>
+		            <td><a href="/detalle_calificacion/{{i.materi.serie}}">ver</a></td>
 		          </tr>
 		          {%endfor%}
 		        </tbody>

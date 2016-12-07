@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<div class="container">
+	<center><h3>Lista de calificaciones {{object.nombre}}</h3></center>
+	<div class="row">
+		<table class="responsive-table centered highlight bordered">
+		        <thead>
+		          <tr>
+		              <th data-field="serie">noControl</th>
+		              <th data-field="nombre">Alumno</th>
+		              <th data-field="unidad">Unidad</th>
+		              <th data-field="puntuacion">Calificacion</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		         {%for i in ex%}
+		          <tr>
+		            <td>{{i.id_alumno}}</td>
+		            <td>{{i.id_alumno.nombre}}</td>
+		            <td>{{i.unidad}}</td>
+		            <td>{{i.puntuacion}}</td>
+		          </tr>
+		          {%endfor%}
+		        </tbody>
+		</table>
+	</div>
+</div>
+{%endblock%}

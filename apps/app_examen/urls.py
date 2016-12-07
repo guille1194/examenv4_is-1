@@ -17,6 +17,9 @@ urlpatterns = [
 	url(r'^materias_alumno/$',materias_alumno,name='materias_alumno'),
 	url(r'^detalle_examen/(?P<pk>[-\w]+)/$',detalle_examen,name='detalle_examen'),
 	url(r'^realizar_examen/(?P<pk>[-\w]+)/$',realizar_examene,name='realizar_examen'),
+	url(r'^calificaciones/$',calificaciones,name='calificaciones'),
+	url(r'^detalle_calificacion/(?P<pk>[-\w]+)/$',detalle_calificacion,name='detalle_calificacion'),
+	url(r'^lista_calificaciones/(?P<pk>[-\w]+)/$',lista_calificaciones,name='lista_calificaciones'),
 
 
 

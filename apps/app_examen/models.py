@@ -70,6 +70,7 @@ class respuesta(models.Model):
 	pregun = models.ForeignKey(pregunta,related_name="pregunt")
 	nombre = models.CharField(max_length=64)
 	correcta = models.BooleanField()
+	terminar = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return u"%s"%(self.nombre)
@@ -116,6 +117,9 @@ class realizar_examen(models.Model):
 	id_pregunta_respuesta = models.ManyToManyField(pregunta_respuesta,blank=True,null=True)
 	id_respuesta = models.ManyToManyField(respuesta,blank=True,null=True)
 	puntuacion = models.IntegerField(blank=True,null=True)
+	unidad = models.IntegerField(blank=True,null=True)
+	id_materia = models.ForeignKey(materia,blank=True,null=True)
+	done = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return '%s'%(self.id)

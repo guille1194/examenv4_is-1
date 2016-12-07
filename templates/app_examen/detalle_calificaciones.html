@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block content %}
+<div class="container">
+	<h3>Resultado de examen por unidad de {{user.alumno.nombre}} en {{object.nombre}}</h3>
+<div class="row">
+		<table class="responsive-table centered highlight bordered">
+		        <thead>
+		          <tr>
+		              <th data-field="serie">Materia</th>
+		              <th data-field="nombre">Unidad</th>
+		              <th data-field="calificacion">Calificacion</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		         {%for i in ex%}
+			         {%if object.serie == i.id_materia.serie%}
+			          <tr>
+			            <td>{{i.id_materia.serie}}</td>
+			            <td>{{i.unidad}}</td>
+			            <td>{{i.puntuacion}}</td>
+			          </tr>
+			          {%endif%}
+		          {%endfor%}
+		        </tbody>
+		</table>
+</div>
+</div>
+{%endblock%}

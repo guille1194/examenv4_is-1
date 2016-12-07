@@ -18,6 +18,7 @@
 			<br><br>
 	{%endfor%}
 	-->
+
 <center><h5>Conteste el examen correctamente</h5></center>
 <div class="row">
 		
@@ -52,6 +53,8 @@
 	   		</div>
 
 	   		<input type="hidden"  value="{{object.id_examen}}" name="id_examen">
+	   		<input type="hidden"  value="{{object.unidad}}" name="unidad">
+	   		<input type="hidden"  value="{{object.id_materia.serie}}" name="id_materia">
 
 	   		<!--{% for item in object_list %}
 	   			{% for item2 in item.id_pregunta_respuesta.all%}
